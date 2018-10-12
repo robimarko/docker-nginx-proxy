@@ -1,4 +1,4 @@
-FROM tozd/nginx-cron
+FROM tozd/nginx-cron:ubuntu-xenial
 
 EXPOSE 80/tcp 443/tcp
 
@@ -13,13 +13,13 @@ ENV LETSENCRYPT_EMAIL=
 RUN apt-get update -q -q && \
  apt-get install wget ca-certificates dnsmasq --yes --force-yes && \
  mkdir /dockergen && \
- wget -P /dockergen https://github.com/jwilder/docker-gen/releases/download/0.7.3/docker-gen-linux-amd64-0.7.3.tar.gz && \
- tar xf /dockergen/docker-gen-linux-amd64-0.7.3.tar.gz -C /dockergen && \
+ wget -P /dockergen https://github.com/jwilder/docker-gen/releases/download/0.7.4/docker-gen-linux-amd64-0.7.4.tar.gz && \
+ tar xf /dockergen/docker-gen-linux-amd64-0.7.4.tar.gz -C /dockergen && \
  mkdir /letsencrypt && \
  export XDG_DATA_HOME=/letsencrypt/data && \
- wget -P /letsencrypt https://github.com/letsencrypt/letsencrypt/archive/v0.5.0.tar.gz && \
- tar xf /letsencrypt/v0.5.0.tar.gz -C /letsencrypt --strip-components=1 && \
- rm -f /letsencrypt/v0.5.0.tar.gz && \
+ wget -P /letsencrypt https://github.com/letsencrypt/letsencrypt/archive/v0.27.1.tar.gz && \
+ tar xf /letsencrypt/v0.27.1.tar.gz -C /letsencrypt --strip-components=1 && \
+ rm -f /letsencrypt/v0.27.1.tar.gz && \
  cd /letsencrypt && \
  mkdir -p /ssl/letsencrypt && \
  ./letsencrypt-auto --no-self-upgrade --noninteractive --config-dir /ssl/letsencrypt --help
